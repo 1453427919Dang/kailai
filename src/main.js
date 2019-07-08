@@ -4,6 +4,8 @@ import Vue from 'vue'
 import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import App from './App'
+import axios from 'axios'
+Vue.prototype.$http = axios
 //二维码插件
 import QRCode from 'qrcodejs2';
 import Home from './components/HelloFromVux';
@@ -16,9 +18,13 @@ import Commission from  './components/distributors/Commission';
 import Distributors from './components/distributors/Distributors';
 import Emplayess from  './components/emplayess/Emplayess';
 import Customer from './components/emplayess/Customer';
-import Report from './components/emplayess/Report'
+import Report from './components/emplayess/Report';
+import QR from './components/emplayess/QR'
 
 Vue.use(VueRouter)
+
+import { AlertPlugin } from 'vux'
+Vue.use(AlertPlugin)
 
 const routes = [{
   path: '/',
@@ -63,6 +69,10 @@ const routes = [{
 {
   path: '/report',
   component: Report
+},
+{
+  path: '/qr',
+  component: QR
 }
 ]
 

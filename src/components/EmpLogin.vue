@@ -5,7 +5,7 @@
       </div>
       <div>
         <div>
-            <x-input class="inStyle"  name="phoneNumber"  placeholder="登录名"  v-model="phoneNumber"></x-input>
+            <x-input class="inStyle"  name="emptyPhone"  placeholder="手机号码" mask="999 9999 9999"  :max="13" is-type="china-mobile" required  v-model="phoneNumber"></x-input>
         </div>
          <div>
             <x-input class="inStyle" name="password" type="password" placeholder="请填写数字密码"  v-model="password" ></x-input>
@@ -27,6 +27,8 @@
 import QRCode from 'qrcodejs2';
 import Base from '../libs/base'
 import { XInput,CheckIcon,XButton} from 'vux'
+import {  EmpLogin } from "@/request/api/login.js"
+import qs from	'qs'
 export default {
      components:{
         XInput,
@@ -41,7 +43,25 @@ export default {
   },
   methods: {
       goto(){
-          this.$router.push({path:'/emplayess'})
+          let data={
+              "loginName": this.phoneNumber,
+	            "password": this.password
+          }
+           EmpLogin(qs.parse(data)).then(res => {
+               console.log(res);
+               if(res.data.result){
+                   this.$router.push({path:'/emplayess'})
+               }else{
+                   this.$vux.alert.show({
+                    title: res.data.msg,
+                    content: '请重新登陆',
+                    buttonText: '确定',
+                    hideOnBlur: true,
+                    maskZIndex: 100,
+                 })
+               }
+           })
+          
       }
   }
 }

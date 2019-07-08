@@ -8,7 +8,7 @@ const service = axios.create({
   }
 })
 
-
+    
 // instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 // Add a request interceptor

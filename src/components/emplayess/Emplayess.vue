@@ -89,18 +89,17 @@ components: {
       this.$router.push({path:'/customer'});
     },
     useqrcode(){
-            this.maskShow = !this.maskShow;
-        var canvas = document.getElementById('canvas')
+        //     this.maskShow = !this.maskShow;
+        // var canvas = document.getElementById('canvas')
  
-        QRCode.toCanvas(canvas, 'http://www.baidu.com', function (error) {
-          if (error) console.error(error)
-          console.log('success!');
-        })
+        // QRCode.toCanvas(canvas, 'http://www.baidu.com', function (error) {
+        //   if (error) console.error(error)
+        //   console.log('success!');
+        // })
+         this.$router.push({path:'/qr'})
       }
+     
     },
-    // mounted(){
-    //   this.useqrcode();
-    // }
 }
 </script>
 

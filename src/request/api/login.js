@@ -1,6 +1,6 @@
 import request from '../index'
 //const serve = 'http://www.kuaidi100.com/query?type=yuantong&postid=11111111111'
-const serve = 'https://itmwxtv.wilmar.cn/v1/wx'
+const serve = 'http://erp.king-land.com:90/ChannelWebService/Service.asmx'
 /*
 *****************   渠道商及员工的注册及登录   **************************
 */ 
@@ -8,22 +8,25 @@ const serve = 'https://itmwxtv.wilmar.cn/v1/wx'
 /**
  * 渠道商注册
  * */ 
-function cheRegist() {
+function cheRegist(jsonData) {
   return request({
-    url: `${serve}`,
+    url: `${serve}/ChannelBusinessAdd`,
     method: 'get',
+    params: {
+      jsonData
+    }
   })
 }
 
 /**
  * 员工注册
  * */ 
-function empRegist(para) {
+function empRegist(jsonData) {
   return request({
-    url: `${serve}/accountBind/sendCaptcha`,
+    url: `${serve}/ChannelPersonAdd`,
     method: 'get',
     params: {
-      para
+      jsonData
     }
   })
 }
@@ -33,9 +36,10 @@ function empRegist(para) {
  * */ 
 function cheLogin(data) {
   return request({
-    url: `${serve}/accountBind/driverBind`,
-    method: 'post',
-    data
+    url: `${serve}/ChannelBusinessLogin`,
+    method: 'get',
+    params: data
+    
   })
 }
 /**
@@ -43,9 +47,9 @@ function cheLogin(data) {
  * */ 
 function EmpLogin(data) {
   return request({
-    url: `${serve}/accountBind/customerBind`,
-    method: 'post',
-    data
+    url: `${serve}/ChannelPersonLogin`,
+    method: 'get',
+    params:data
   })
 }
 

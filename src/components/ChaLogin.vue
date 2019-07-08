@@ -5,10 +5,10 @@
       </div>
       <div>
         <div>
-            <x-input class="inStyle"  name="phoneNumber"  placeholder="登录名"  v-model="phoneNumber"></x-input>
+            <x-input class="inStyle"  name="phoneNumber"  placeholder="登录名"  v-model="phoneNumber" required></x-input>
         </div>
          <div>
-            <x-input class="inStyle" name="password" type="password" placeholder="请填写数字密码"  v-model="password" ></x-input>
+            <x-input class="inStyle" name="password" type="password" placeholder="请填写数字密码"  v-model="password" required></x-input>
         </div>
         <div style="padding:10px;">
             <x-button class="weui-btn weui-btn_warn"  @click.native="login">登陆</x-button>
@@ -26,6 +26,8 @@
 <script>
 import Base from '../libs/base'
 import { XInput,CheckIcon,XButton} from 'vux'
+import { getCaptcha, cheLogin } from "@/request/api/login.js"
+import qs from	'qs'
 export default {
      components:{
         XInput,
@@ -40,7 +42,24 @@ export default {
   },
   methods: {
       login(){
-           this.$router.push({ path:'/distributors'  })
+          let data={
+              "loginName": this.phoneNumber,
+	            "password": this.password
+          }
+           cheLogin(qs.parse(data)).then(res => {
+               console.log(res);
+               if(res.data.result){
+                   this.$router.push({ path:'/distributors'  })
+               }else{
+                   this.$vux.alert.show({
+                    title: res.data.msg,
+                    content: '请重新登陆',
+                    buttonText: '确定',
+                    hideOnBlur: true,
+                    maskZIndex: 100,
+                 })
+               }
+           })
       }
   }
 }
