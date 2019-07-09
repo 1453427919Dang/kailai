@@ -12,11 +12,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in table" >
-            <td>{{i.member}}</td>
-            <td>{{i.customer}}</td>
-            <td> {{i.clinch}}</td>
-            <td> {{i.sum}}</td>
+          <tr v-for="myEmpty in myEmptyList" :key="myEmpty.id"> 
+            <td>{{myEmpty.pName}}</td>
+            <td>{{myEmpty.clientNum}}</td>
+            <td> {{myEmpty.contractNum}}</td>
+            <td>{{myEmpty.contractPrice}}</td>
           </tr>
         </tbody>
       </x-table>
@@ -30,6 +30,8 @@
 </template>
 <script>
 import { XTable  } from 'vux'
+import { getChannelEmpList} from "@/request/api/login.js"
+
 
 export default {
   components: {
@@ -37,6 +39,7 @@ export default {
   },
   data(){
     return{
+      myEmptyList:[],
       table:[
         {
        member:"张三",
@@ -58,6 +61,14 @@ export default {
      },
       ]
     }
+  },
+  created(){
+    getChannelEmpList({cbId:this.$route.query.channelId}).then((res)=>{
+      console.log(res);
+      if(res.data.result){
+        this.myEmptyList=res.data.data;
+      }
+    })
   },
   methods: {
     onItemClick () {

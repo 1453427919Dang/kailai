@@ -125,8 +125,8 @@ export default {
   border-radius: 8px;
   margin-left: 5px;
   margin-right: 10px;
-  width: 88%;
-  height: 25px;
+  width: 97%;
+  height: 35px;
   background: #fff;
 }
 </style>

@@ -9,10 +9,7 @@
         </div>
          <div>
             <x-input class="inStyle" name="password" type="password" placeholder="请填写数字密码"  v-model="password" ></x-input>
-        </div>
-        <group style="border-radius: 8px;">
-            <selector v-model="value3" title="渠道商选择：" :options="list2" ></selector>
-         </group>    
+        </div>   
         <div style="padding:10px;">
             <x-button class="weui-btn weui-btn_warn" style="color:#fff"  @click.native="goto">登陆</x-button>
             <router-link to='/EmpRegist'>没有账号？点击注册</router-link>
@@ -30,7 +27,7 @@
 import QRCode from 'qrcodejs2';
 import Base from '../libs/base'
 import { XInput,CheckIcon,XButton, Selector, Group,} from 'vux'
-import {  EmpLogin,ChannelList } from "@/request/api/login.js"
+import {  EmpLogin } from "@/request/api/login.js"
 import qs from	'qs'
 export default {
      components:{
@@ -44,23 +41,10 @@ export default {
     return {
       phoneNumber: '',
       password:'',
-      channelList:[],
-      value3:"",
-      list2:[
-         {key: 'gd', value: '广东'}, {key: 'gx', value: '广西'}
-      ]
     }
-  },
-  created(){
-      ChannelList().then(res=>{
-          console.log(res);
-          this.channelList= res.data.data;
-      })
-    
   },
   methods: {
       goto(){
-          console.log(this.value3);
           let data={
               "loginName": this.phoneNumber,
 	            "password": this.password
@@ -68,7 +52,7 @@ export default {
            EmpLogin(qs.parse(data)).then(res => {
                console.log(res);
                if(res.data.result){
-                   this.$router.push({path:'/emplayess'})
+                   this.$router.push({path:'/emplayess',query:{emplayessList:res.data.data}})
                }else{
                    this.$vux.alert.show({
                     title: res.data.msg,

@@ -64,6 +64,27 @@ function ChannelList() {
   })
 }
 
+/**
+ * 获取员工清单列表
+ * */ 
+function getChannelEmpList(data) {
+  return request({
+    url: `${serve}/ChannelBusinessGetPeronList`,
+    method: 'get',
+    params:data
+  })
+}
+
+/**
+ * 获取项目清单列表
+ * */ 
+function getSaProjectList() {
+  return request({
+    url: `${serve}/ErpGetSaProjectList`,
+    method: 'get',
+  })
+}
+
 /*
 *****************   获取openId   **************************
 */ 
@@ -111,6 +132,8 @@ export {
   EmpLogin,
   getCaptcha,
   ChannelList,
+  getChannelEmpList,
+  getSaProjectList,
 
   snsapiBase,
   getSignature

@@ -3,7 +3,7 @@
       <div class="box">
           <flexbox>
             <flexbox-item><div class="flex-demo" style="display:inner-block"><img width="100" height="100"  style="padding-left:10px"   src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558932077919&di=a377be2a73e4b2ea94bb8340f2c8e963&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201605%2F07%2F20160507191419_J2m8R.thumb.700_0.jpeg" alt="">
-            <span style="font-size:22px; padding-left:10px">张 丹</span>
+            <span style="font-size:22px; padding-left:10px">{{emplayessList.pName}}</span>
             </div>
            
             </flexbox-item>
@@ -77,9 +77,14 @@ components: {
   },
   data () {
     return {
-      msg: '',
+      emplayessList:{},
       maskShow: false,
     }
+  },
+  created(){
+    // $route.channelList;
+    this.emplayessList = this.$route.query.emplayessList;
+    console.log(this.emplayessList);
   },
   methods: {
     herfReport(){
@@ -107,8 +112,8 @@ components: {
     .box{
       border: 1px solid #fff;
       border-radius:8px;
-      height:160px;
-      width:86%;
+      height:180px;
+      width:93%;
       padding: 10px;
       margin: 20px 15px;
       background: #fff;

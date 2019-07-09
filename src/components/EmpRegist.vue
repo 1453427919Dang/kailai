@@ -12,9 +12,9 @@
         <group class="deepStyle">
             <x-input class="inStyle" name="emptyPassword" type="password" placeholder="数字密码"  v-model="emptyPassword" required></x-input>
         </group>
-        <div style="padding-top:10px">
-            <check-icon :value.sync="demo" type="plain"> <a href="http://klwx.choicelean.com/regprotocol.html">我同意以上注册协议</a> </check-icon>
-        </div>
+         <group class="deepStyle">
+            <selector v-model="cbID" title="渠道商选择：" :options="channelList" ></selector>
+         </group> 
         <div style="padding:10px;">
             <h5 style="color:#676869">温馨提示</h5>
             <p style="color:#676869;font-size:12px">
@@ -32,14 +32,15 @@
 
 <script>
 import Base from "../libs/base";
-import { XInput, CheckIcon, XButton, Group, AlertModule } from "vux";
-import { empRegist } from "@/request/api/login.js";
+import { XInput, CheckIcon, XButton, Group, AlertModule ,Selector} from "vux";
+import { empRegist,ChannelList } from "@/request/api/login.js";
 export default {
   components: {
     XInput,
     CheckIcon,
     XButton,
-    Group
+    Group,
+    Selector
   },
   data() {
     return {
@@ -47,8 +48,26 @@ export default {
       emptyName: "",
       emptyPassword: "",
       emptyPhone: "",
-      demo: false
+      channelList:[],
+      cbID:"",
+      list2:[
+         {key: 'gd', value: '广东'}, {key: 'gx', value: '广西'}
+      ]
     };
+  },
+  created(){
+      ChannelList().then(res=>{
+          console.log(res);
+          this.channelList=[];
+          let channel= res.data.data;
+          for(var i=0;i<channel.length;i++){
+            let obj={};
+            obj.key=channel.id;
+            obj.value=channel.name;
+            this.channelList.push(obj);
+          }
+      })
+    
   },
   methods: {
     register() {
@@ -56,7 +75,7 @@ export default {
         pPhone: this.emptyPhone,
         pPassword: this.emptyPassword,
         pName: this.emptyName,
-        cbID: 2
+        cbID: this.cbID
       };
       empRegist(this.data).then(res => {
         console.log(res);
@@ -105,8 +124,9 @@ export default {
   border-radius: 8px;
   margin-left: 5px;
   margin-right: 10px;
-  width: 88%;
-  height: 25px;
+  width: 97%;
+  height: 35px;
   background: #fff;
+  padding:10px;
 }
 </style>
