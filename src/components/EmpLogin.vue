@@ -3,13 +3,16 @@
       <div class="emp-font">
           <img src="http://klwx.choicelean.com:80/images/logo.png" alt="">
       </div>
-      <div>
+      <div style="padding:15px">
         <div>
             <x-input class="inStyle"  name="emptyPhone"  placeholder="手机号码" mask="999 9999 9999"  :max="13" is-type="china-mobile" required  v-model="phoneNumber"></x-input>
         </div>
          <div>
             <x-input class="inStyle" name="password" type="password" placeholder="请填写数字密码"  v-model="password" ></x-input>
         </div>
+        <group style="border-radius: 8px;">
+            <selector v-model="value3" title="渠道商选择：" :options="list2" ></selector>
+         </group>    
         <div style="padding:10px;">
             <x-button class="weui-btn weui-btn_warn" style="color:#fff"  @click.native="goto">登陆</x-button>
             <router-link to='/EmpRegist'>没有账号？点击注册</router-link>
@@ -26,23 +29,38 @@
 <script>
 import QRCode from 'qrcodejs2';
 import Base from '../libs/base'
-import { XInput,CheckIcon,XButton} from 'vux'
-import {  EmpLogin } from "@/request/api/login.js"
+import { XInput,CheckIcon,XButton, Selector, Group,} from 'vux'
+import {  EmpLogin,ChannelList } from "@/request/api/login.js"
 import qs from	'qs'
 export default {
      components:{
         XInput,
         CheckIcon,
-        XButton
+        XButton,
+        Group,
+        Selector,
     },
   data () {
     return {
       phoneNumber: '',
       password:'',
+      channelList:[],
+      value3:"",
+      list2:[
+         {key: 'gd', value: '广东'}, {key: 'gx', value: '广西'}
+      ]
     }
+  },
+  created(){
+      ChannelList().then(res=>{
+          console.log(res);
+          this.channelList= res.data.data;
+      })
+    
   },
   methods: {
       goto(){
+          console.log(this.value3);
           let data={
               "loginName": this.phoneNumber,
 	            "password": this.password
@@ -63,6 +81,7 @@ export default {
            })
           
       }
+
   }
 }
 </script>
@@ -82,8 +101,8 @@ export default {
         margin-left: 5px;
         margin-right: 5px;
         margin-bottom: 10px;
-        width:88%;
-        height:25px;
+        width:100%;
+        height:30px;
         background: #fff;
 
     }

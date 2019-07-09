@@ -54,6 +54,16 @@ function EmpLogin(data) {
 }
 
 
+/**
+ * 获取已经审核通过的渠道商列表
+ * */ 
+function ChannelList() {
+  return request({
+    url: `${serve}/ChannelBusinessGetList`,
+    method: 'get',
+  })
+}
+
 /*
 *****************   获取openId   **************************
 */ 
@@ -100,6 +110,7 @@ export {
   cheLogin,
   EmpLogin,
   getCaptcha,
+  ChannelList,
 
   snsapiBase,
   getSignature
