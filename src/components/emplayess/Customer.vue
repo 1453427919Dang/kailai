@@ -12,17 +12,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in table" :key="i.member">
-            <td>{{i.member}}</td>
-            <td>{{i.customer}}</td>
-            <td> {{i.clinch}}</td>
-            <td> {{i.sum}}</td>
+          <tr v-for="report in reportList" :key="report.personId">
+            <td>{{report.cName}}</td>
+            <td>{{report.projectName}}</td>
+            <td> {{report.cPhone}}</td>
+            <td> {{report.statusName}}</td>
           </tr>
         </tbody>
       </x-table>
       <div class="paginate_container">
     <paginate
-      :page-count="20"
+      :page-count="totalPages"
       :margin-pages="1"
       :page-range="1"
       :initial-page="0"
@@ -50,7 +50,8 @@
 <script>
 import { XTable } from "vux";
 import Paginate from "vuejs-paginate";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import { getReportList } from "@/request/api/login.js";
 
 export default {
   components: {
@@ -59,6 +60,10 @@ export default {
   },
   data() {
     return {
+      totalPages:1,
+      currentPage:1,
+      totalCount:'',
+      reportList:[],
       table: [
         {
           member: "张三",
@@ -81,12 +86,34 @@ export default {
       ]
     };
   },
+  created() {
+    let data = {
+      pId: this.$route.query.emplayessId,
+      page : this.currentPage ,
+      pageCount: 1,
+      jsonQuery: {
+        name: "",
+        phone: "",
+        state: ""
+      },
+      sortby: ""
+    };
+    console.log(data);
+    getReportList(data).then(res => {
+      console.log(res);
+      if(res.data.result){
+        this.reportList= res.data.data.listdata;
+        this.currentPage=res.data.data.page.totalPages;
+      };
+    });
+  },
   methods: {
     onItemClick() {
       console.log("on item click");
     },
-    pageEvent(e){
-      console.log(e);
+    pageEvent(e) {
+      this.currentPage=e;
+      conosle.log(this.currentPage);
     }
   }
 };
@@ -105,6 +132,4 @@ export default {
   margin-top: 90%;
   color: rgba(0, 0, 0, 0.6);
 }
-
-
 </style>

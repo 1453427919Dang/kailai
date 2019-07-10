@@ -7,7 +7,7 @@
           name="emptyName"
           type="text"
           placeholder="请填写姓名"
-          v-model="emptyName"
+          v-model="emplayessName"
           is-type="china-name"
         ></x-input>
       </group>
@@ -18,27 +18,15 @@
           name="emptyPhone"
           placeholder="请填写手机号码"
           mask="999 9999 9999"
-          v-model="emptyPhone"
+          v-model="emplayessPhone"
           :max="13"
           is-type="china-mobile"
         ></x-input>
       </group>
-      <div style="padding-top:10px;padding-left:15px">
-        <input type="radio" name="gender" value="0" v-model="gender" checked />男
-        <span>&nbsp;&nbsp;&nbsp;</span>
-        <input type="radio" name="gender" value="1" v-model="gender" />女
-      </div>
       <div style="padding-top:10px;padding-left:15px" >
-       
           <p v-for="project in projects" :key="project.key" style="display:inline-block">
-              <input name="sex" type="radio" v-model="projectId" value="project.key"/>{{project.value}} &nbsp;&nbsp;
+              <input name="sex" type="radio" v-model="projectId" :value="project.key"/>{{project.value}} &nbsp;&nbsp;
           </p>
- 
-      </div>
-      <div style="padding:15px;">
-        <group>
-          <x-textarea placeholder :height="100" :rows="8" :cols="30"></x-textarea>
-        </group>
       </div>
       <div style="padding:10px;">
         <h5 style="color:#676869">温馨提示</h5>
@@ -53,8 +41,8 @@
 
 <script>
 import Base from "../../libs/base";
-import { XInput, CheckIcon, XButton, Group, XTextarea ,Radio} from "vux";
-import { getSaProjectList } from "@/request/api/login.js";
+import { XInput, CheckIcon, XButton, Group, XTextarea, Radio } from "vux";
+import { getSaProjectList, report } from "@/request/api/login.js";
 export default {
   components: {
     XInput,
@@ -66,14 +54,12 @@ export default {
   },
   data() {
     return {
-      emptyName: "",
-      emptyPhone: "",
-      demo: false,
-      gender: 0,
+      emplayessName: "",
+      emplayessPhone: "",
       proName: "",
       projectList: [],
       projects: [],
-      projectId:"",
+      projectId: ""
     };
   },
   created() {
@@ -94,7 +80,37 @@ export default {
   },
   methods: {
     report() {
-      console.log(this.emptyName);
+      let data = {
+        pId: this.$route.query.emplayessId,
+        jsonData: {
+          cName: this.emplayessName,
+          cPhone: this.emplayessPhone,
+          projectId: this.projectId
+        }
+      };
+      console.log(this.projectId);
+      console.log(data);
+      report(data).then(res => {
+        console.log(res);
+        if(res.data.result){
+          this.$vux.alert.show({
+                    title: res.data.msg,
+                    content: '报备成功',
+                    buttonText: '确定',
+                    hideOnBlur: true,
+                    maskZIndex: 100,
+            })
+            this.$router.go(-1);
+        }else{
+          this.$vux.alert.show({
+                    title: res.data.msg,
+                    content: '请重新报备',
+                    buttonText: '确定',
+                    hideOnBlur: true,
+                    maskZIndex: 100,
+            })
+        }
+      });
     }
   }
 };

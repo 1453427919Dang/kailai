@@ -45,7 +45,7 @@
         </button>
       <button class="weui-btn weui-btn_warn" @click="herfCus">
         <img src="../../assets/personal.png" alt="" width="30" height="30"> 
-        <span class="font-style"> 我的客户</span>
+        <span class="font-style"> 报备清单</span>
         </button>
     </div>
       <div>
@@ -57,10 +57,6 @@
         <img src="../../assets/scan.png" alt="" width="30" height="30"> 
         <span class="font-style"> 我的扫描</span>
         </button>
-    </div>
-    <div  class="mask" v-show="maskShow" @click="useqrcode">
-      <div id='code'></div>
-    <canvas id="canvas"></canvas>
     </div>
   </div>
 </template>
@@ -78,29 +74,23 @@ components: {
   data () {
     return {
       emplayessList:{},
-      maskShow: false,
+      emplayessId:'',
     }
   },
   created(){
     // $route.channelList;
     this.emplayessList = this.$route.query.emplayessList;
     console.log(this.emplayessList);
+    this.emplayessId = this.emplayessList.id;
   },
   methods: {
     herfReport(){
-      this.$router.push({path:'/report'})
+      this.$router.push({path:'/report',query:{emplayessId:this.emplayessId}})
     },
     herfCus(){
-      this.$router.push({path:'/customer'});
+      this.$router.push({path:'/customer',query:{emplayessId:this.emplayessId}});
     },
     useqrcode(){
-        //     this.maskShow = !this.maskShow;
-        // var canvas = document.getElementById('canvas')
- 
-        // QRCode.toCanvas(canvas, 'http://www.baidu.com', function (error) {
-        //   if (error) console.error(error)
-        //   console.log('success!');
-        // })
          this.$router.push({path:'/qr'})
       }
      

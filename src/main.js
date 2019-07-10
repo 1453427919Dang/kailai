@@ -19,6 +19,7 @@ import Distributors from './components/distributors/Distributors';
 import Emplayess from  './components/emplayess/Emplayess';
 import Customer from './components/emplayess/Customer';
 import Report from './components/emplayess/Report';
+import AdviserLogin from './components/AdviserLogin';
 // import QR from './components/emplayess/QR'
 
 Vue.use(VueRouter)
@@ -70,10 +71,10 @@ const routes = [{
   path: '/report',
   component: Report
 },
-// {
-//   path: '/qr',
-//   component: QR
-// }
+{
+  path: '/adviserLogin',
+  component: AdviserLogin
+}
 ]
 
 const router = new VueRouter({

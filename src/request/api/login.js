@@ -85,6 +85,28 @@ function getSaProjectList() {
   })
 }
 
+/**
+ * 新增报备
+ * */ 
+function report(data) {
+  return request({
+    url: `${serve}/ClientReportAdd`,
+    method: 'get',
+    params:data
+  })
+}
+
+/**
+ * 获取报备清单
+ * */ 
+function getReportList(data) {
+  return request({
+    url: `${serve}/ClientReportList`,
+    method: 'get',
+    params:data
+  })
+}
+
 /*
 *****************   获取openId   **************************
 */ 
@@ -134,6 +156,8 @@ export {
   ChannelList,
   getChannelEmpList,
   getSaProjectList,
+  report,
+  getReportList,
 
   snsapiBase,
   getSignature

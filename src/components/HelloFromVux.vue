@@ -23,6 +23,12 @@
         <span class="font-style"> 员工管理</span>
       </button>
     </div>
+    <div>
+      <button class="weui-btn weui-btn_warn" @click="herfAdviserLogin">
+        <img src="http://klwx.choicelean.com:80/images/btn-bg-22.png" alt="" width="30" height="30"> 
+       <span class="font-style">置业顾问登陆</span>
+        </button>
+    </div>
   </div>
 </template>
 
@@ -57,7 +63,10 @@ export default {
     },
     herfEmpLogin(){
       this.$router.push({ path:'./EmpLogin'  })
-    }
+    },
+    herfAdviserLogin(){
+      this.$router.push({ path:'./AdviserLogin'  })
+    },
   }
 };
 </script>
@@ -68,7 +77,7 @@ export default {
 }
 .logo {
   width: 100%;
-  height: 260px;
+  height: 200px;
 }
 button.weui-btn {
   width: 45%;
