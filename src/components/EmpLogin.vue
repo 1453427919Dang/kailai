@@ -52,7 +52,9 @@ export default {
            EmpLogin(qs.parse(data)).then(res => {
                console.log(res);
                if(res.data.result){
-                   this.$router.push({path:'/emplayess',query:{emplayessList:res.data.data}})
+                   let response = res.data.data;
+                   console.log(response.pName);
+                   this.$router.push({path:'/emplayess',query:{emplayessId:response.id,emplayessName:response.pName}})
                }else{
                    this.$vux.alert.show({
                     title: res.data.msg,
@@ -86,7 +88,7 @@ export default {
         margin-right: 5px;
         margin-bottom: 10px;
         width:100%;
-        height:30px;
+        height: 45px;
         background: #fff;
 
     }

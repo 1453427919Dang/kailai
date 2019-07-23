@@ -64,26 +64,6 @@ export default {
       currentPage:1,
       totalCount:'',
       reportList:[],
-      table: [
-        {
-          member: "张三",
-          customer: "11",
-          clinch: "4",
-          sum: "50"
-        },
-        {
-          member: "李四",
-          customer: "13",
-          clinch: "4",
-          sum: "60"
-        },
-        {
-          member: "王五",
-          customer: "10",
-          clinch: "8",
-          sum: "60"
-        }
-      ]
     };
   },
   created() {

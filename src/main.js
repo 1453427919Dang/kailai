@@ -7,7 +7,6 @@ import App from './App'
 import axios from 'axios'
 Vue.prototype.$http = axios
 //二维码插件
-import QRCode from 'qrcodejs2';
 import Home from './components/HelloFromVux';
 import Channel from  './components/ChaRegist';
 import ChaLogin from './components/ChaLogin';
@@ -20,14 +19,26 @@ import Emplayess from  './components/emplayess/Emplayess';
 import Customer from './components/emplayess/Customer';
 import Report from './components/emplayess/Report';
 import AdviserLogin from './components/AdviserLogin';
-// import QR from './components/emplayess/QR'
+import Adviser from './components/Adviser'
+import MyCustomer from './components/emplayess/MyCustomer'
+import QR from './components/emplayess/QR'
+import Loading from './components/Loading'
+import $ from 'jquery'
 
 Vue.use(VueRouter)
 
 import { AlertPlugin } from 'vux'
 Vue.use(AlertPlugin)
 
-const routes = [{
+
+
+
+const routes = [
+//   {
+//   path: '/',
+//   component: Loading,
+// },
+{
   path: '/',
   component: Home,
 },
@@ -74,6 +85,18 @@ const routes = [{
 {
   path: '/adviserLogin',
   component: AdviserLogin
+},
+{
+  path: '/qr',
+  component: QR
+},
+{
+  path: '/adviser',
+  component: Adviser
+},
+{
+  path: '/myCustomer/:id',
+  component: MyCustomer
 }
 ]
 
@@ -90,3 +113,15 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app-box')
+
+
+FastClick.prototype.focus = function (targetElement) {
+  let length;
+  if (targetElement.setSelectionRange && targetElement.type.indexOf('date') !== 0 && targetElement.type !== 'time' && targetElement.type !== 'month') {
+    length = targetElement.value.length;
+    targetElement.focus();
+    targetElement.setSelectionRange(length, length);
+  } else {
+    targetElement.focus();
+  }
+}

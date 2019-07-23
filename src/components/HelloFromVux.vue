@@ -35,6 +35,7 @@
 <script>
 import { Group, Cell } from "vux";
 import { XButton } from "vux";
+import { getUserInfo } from "@/request/api/login.js";
 
 export default {
   components: {
@@ -51,22 +52,36 @@ export default {
       msg: "Hello World!"
     };
   },
-  methods:{
-    herfCha(){
-       this.$router.push({ path:'./ChaRegist'  })
+  created() {
+    
+  },
+  mounted() {
+    let that = this;
+    // 添加返回事件监听
+    window.addEventListener(
+      "popstate",
+      function(e) {
+        that.isShowTestDiv = false;
+      },
+      false
+    );
+  },
+  methods: {
+    herfCha() {
+      this.$router.push({ path: "./ChaRegist" });
     },
-    herfEmp(){
-      this.$router.push({ path:'./EmpRegist'  })
+    herfEmp() {
+      this.$router.push({ path: "./EmpRegist" });
     },
-    herfChaLogin(){
-      this.$router.push({ path:'./ChaLogin'  })
+    herfChaLogin() {
+      this.$router.push({ path: "./ChaLogin" });
     },
-    herfEmpLogin(){
-      this.$router.push({ path:'./EmpLogin'  })
+    herfEmpLogin() {
+      this.$router.push({ path: "./EmpLogin" });
     },
-    herfAdviserLogin(){
-      this.$router.push({ path:'./AdviserLogin'  })
-    },
+    herfAdviserLogin() {
+      this.$router.push({ path: "./AdviserLogin" });
+    }
   }
 };
 </script>

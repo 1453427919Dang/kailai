@@ -49,8 +49,8 @@ export default {
            cheLogin(qs.parse(data)).then(res => {
                console.log(res);
                if(res.data.result){
-                   console.log(res.data.data);
-                   this.$router.push({ path:'/distributors',query:{channelList:res.data.data}})
+                   let response = res.data.data
+                   this.$router.push({ path:'/distributors',query:{channelId:response.id,channelName:response.accountName}})
                }else{
                    this.$vux.alert.show({
                     title: res.data.msg,
@@ -82,7 +82,7 @@ export default {
         margin-right: 5px;
         margin-bottom: 10px;
         width:97%;
-        height:35px;
+        height: 45px;
         background: #fff;
 
     }

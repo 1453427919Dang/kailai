@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-top:40px">
-      <group class="deepStyle">
+      <div class="deepStyle">
         <x-input
           class="inStyle"
           name="emptyName"
@@ -10,9 +10,9 @@
           v-model="emplayessName"
           is-type="china-name"
         ></x-input>
-      </group>
+      </div>
 
-      <group class="deepStyle">
+      <div class="deepStyle">
         <x-input
           class="inStyle"
           name="emptyPhone"
@@ -22,7 +22,7 @@
           :max="13"
           is-type="china-mobile"
         ></x-input>
-      </group>
+      </div>
       <div style="padding-top:10px;padding-left:15px" >
           <p v-for="project in projects" :key="project.key" style="display:inline-block">
               <input name="sex" type="radio" v-model="projectId" :value="project.key"/>{{project.value}} &nbsp;&nbsp;
@@ -137,6 +137,7 @@ export default {
   border-radius: 8px;
   margin-left: 5px;
   margin-right: 10px;
+  margin-bottom: 10px;
   width: 97%;
   height: 35px;
   background: #fff;

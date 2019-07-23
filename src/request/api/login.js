@@ -1,6 +1,7 @@
 import request from '../index'
 //const serve = 'http://www.kuaidi100.com/query?type=yuantong&postid=11111111111'
 const serve = 'http://erp.king-land.com:90/ChannelWebService/Service.asmx'
+
 /*
 *****************   渠道商及员工的注册及登录   **************************
 */ 
@@ -107,6 +108,27 @@ function getReportList(data) {
   })
 }
 
+/**
+ * 置业顾问登陆接口
+ * */ 
+function adviserLogin(data) {
+  return request({
+    url: `${serve}/ErpLogin`,
+    method: 'get',
+    params:data
+  })
+}
+
+/**
+ * 带看确认接口
+ * */ 
+function SeeHouseConfirm(data) {
+  return request({
+    url: `${serve}/SeeHouseConfirm`,
+    method: 'get',
+    params:data
+  })
+}
 /*
 *****************   获取openId   **************************
 */ 
@@ -115,12 +137,16 @@ function getReportList(data) {
  * 获取openId
  * @param [{String}] code 微信识别码
  * */ 
-function snsapiBase(code) {
+function getUserInfo(code) {
   return request({
-    url: `/mtwechat/snsapiBase/getOpenId?code=` + code,
+    url: `${serve}/getUserInfo?code=` + code,
     method: 'get'
   })
 }
+
+/**
+ * 微信扫一扫
+ */
 
 /**
  * 获取js页面权限签名
@@ -158,6 +184,9 @@ export {
   getSaProjectList,
   report,
   getReportList,
+  adviserLogin,
+  SeeHouseConfirm,
+  getUserInfo,
 
   snsapiBase,
   getSignature
