@@ -8,35 +8,6 @@
            
             </flexbox-item>
         </flexbox>
-         <flexbox>
-            <flexbox-item><div class="flex-demo" style="display:inner-block">
-            </div>
-            </flexbox-item>
-            <flexbox-item>
-              <div class="flex-demo" style="padding-left:10px">
-                <span>推荐人数</span>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span>总佣金</span>
-              </div>
-            </flexbox-item>
-        </flexbox>
-        <flexbox>
-            <flexbox-item><div class="flex-demo" style="display:inner-block">
-            </div>
-            </flexbox-item>
-            <flexbox-item>
-              <div class="flex-demo" style="padding-left:10px">
-                  <span>
-                    <img width="30" height="30" src="../../assets/man.png" alt="">
-                  3</span>
-                  <span><img width="30" height="30" src="../../assets/xian.png" alt=""></span>
-                <span>
-                  <img width="30" height="30" src="../../assets/money.png" alt="">
-                  100
-                  </span>
-              </div>
-            </flexbox-item>
-        </flexbox>
       </div>
       <div>
       <button class="weui-btn weui-btn_warn"  @click="herfReport">
@@ -53,9 +24,10 @@
         <img src="../../assets/qr.png" alt="" width="30" height="30">
         <span class="font-style">我的二维码</span>
         </button>
-      <button class="weui-btn weui-btn_warn" >
+      <button class="weui-btn weui-btn_warn" @click="quit" >
         <img src="../../assets/scan.png" alt="" width="30" height="30"> 
-        <span class="font-style"> 我的扫描</span>
+        <span class="font-style"> 离职申请
+        </span>
         </button>
     </div>
   </div>
@@ -64,34 +36,52 @@
 <script>
 
 import QRCode from 'qrcode';
-import { Flexbox, FlexboxItem, Divider } from 'vux';
+import { Flexbox, FlexboxItem, Divider,Alert } from 'vux';
 export default {
 components: {
     Flexbox,
     FlexboxItem,
-    Divider
+    Divider,
+    Alert
   },
   data () {
     return {
       emplayessName:'',
       emplayessId:'',
+      canReport:'true',
     }
   },
   created(){
     // $route.channelList;
     this.emplayessName = this.$route.query.emplayessName;
     this.emplayessId = this.$route.query.emplayessId;
+    this.canReport = this.$route.query.canReport;
+    console.log(this.canReport);
   },
   methods: {
     herfReport(){
-      this.$router.push({path:'/report',query:{emplayessId:this.emplayessId}})
+      console.log(this.canReport);
+      if(this.canReport){
+         this.$router.push({path:'/report',query:{emplayessId:this.emplayessId}})
+      }else{
+        this.$vux.alert.show({
+          title: "请检查是否处于在职状态或是否审核通过",
+          buttonText: "确定",
+          hideOnBlur: true,
+          maskZIndex: 100
+        });
+      }
+     
     },
     herfCus(){
       this.$router.push({path:'/customer',query:{emplayessId:this.emplayessId}});
     },
     useqrcode(){
          this.$router.push({path:'/qr',query:{emplayessId:this.emplayessId}})
-      }
+      },
+    quit(){
+        this.$router.push({path:'/quitEmplayess',query:{emplayessId:this.emplayessId,emplayessName:this.emplayessName}})
+    }
      
     },
 }

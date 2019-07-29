@@ -56,9 +56,21 @@ function EmpLogin(data) {
 
 
 /**
+ * 审核员工
+ * */ 
+function ChannelBusinessAudit(data) {
+  return request({
+    url: `${serve}/ChannelBusinessAudit`,
+    method: 'get',
+    params:data
+  })
+}
+
+
+/**
  * 获取已经审核通过的渠道商列表
  * */ 
-function ChannelList() {
+function ChannelList(data) {
   return request({
     url: `${serve}/ChannelBusinessGetList`,
     method: 'get',
@@ -66,16 +78,48 @@ function ChannelList() {
 }
 
 /**
- * 获取员工清单列表
+ * 获取已审核通过员工清单列表
  * */ 
 function getChannelEmpList(data) {
   return request({
-    url: `${serve}/ChannelBusinessGetPeronList`,
+    url: `${serve}/ChannelBusinessGetPeronList `,
     method: 'get',
     params:data
   })
 }
 
+
+/**
+ * 获取未审核通过员工清单列表
+ * */ 
+function getApproveChannelEmpList(data) {
+  return request({
+    url: `${serve}/ChannelBusinessGetPeronListUnAudited `,
+    method: 'get',
+    params:data
+  })
+}
+/**
+ * 渠道商员工客户转移
+ * */ 
+function ChannelBusinessMoveClient(data) {
+  return request({
+    url: `${serve}/ChannelBusinessMoveClient `,
+    method: 'get',
+    params:data
+  })
+}
+
+/**
+ * 获取某员工的客户列表
+ * */ 
+function ChannelBusinessMoveGetList(data) {
+  return request({
+    url: `${serve}/ChannelBusinessMoveGetList `,
+    method: 'get',
+    params:data
+  })
+}
 /**
  * 获取项目清单列表
  * */ 
@@ -83,6 +127,16 @@ function getSaProjectList() {
   return request({
     url: `${serve}/ErpGetSaProjectList`,
     method: 'get',
+  })
+}
+/**
+ * 获取客户置业顾问更进情况
+ * */ 
+function ChannelPersonGetClientContact(data) {
+  return request({
+    url: `${serve}/ChannelPersonGetClientContact`,
+    method: 'get',
+    params:data
   })
 }
 
@@ -96,6 +150,16 @@ function report(data) {
     params:data
   })
 }
+/**
+ *渠道商汇总
+ * */ 
+function ChannelBusinessCount(data) {
+  return request({
+    url: `${serve}/ChannelBusinessCount`,
+    method: 'get',
+    params:data
+  })
+}
 
 /**
  * 获取报备清单
@@ -103,6 +167,17 @@ function report(data) {
 function getReportList(data) {
   return request({
     url: `${serve}/ClientReportList`,
+    method: 'get',
+    params:data
+  })
+}
+
+/**
+ * 获取可带看报备清单
+ * */ 
+function ClientReportCanSeeList(data) {
+  return request({
+    url: `${serve}/ClientReportCanSeeList`,
     method: 'get',
     params:data
   })
@@ -125,6 +200,18 @@ function adviserLogin(data) {
 function SeeHouseConfirm(data) {
   return request({
     url: `${serve}/SeeHouseConfirm`,
+    method: 'get',
+    params:data
+  })
+}
+
+
+/**
+ * 渠道员工离职
+ * */ 
+function ChannelPersonDismission(data) {
+  return request({
+    url: `${serve}/ChannelPersonDismission`,
     method: 'get',
     params:data
   })
@@ -187,6 +274,14 @@ export {
   adviserLogin,
   SeeHouseConfirm,
   getUserInfo,
+  getApproveChannelEmpList,
+  ChannelBusinessAudit,
+  ChannelPersonDismission,
+  ClientReportCanSeeList,
+  ChannelBusinessMoveGetList,
+  ChannelBusinessMoveClient,
+  ChannelPersonGetClientContact,
+  ChannelBusinessCount,
 
   snsapiBase,
   getSignature

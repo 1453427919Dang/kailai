@@ -84,7 +84,7 @@ export default {
         pId: this.$route.query.emplayessId,
         jsonData: {
           cName: this.emplayessName,
-          cPhone: this.emplayessPhone,
+          cPhone: this.emplayessPhone.replace(' ','').replace(' ',''),
           projectId: this.projectId
         }
       };

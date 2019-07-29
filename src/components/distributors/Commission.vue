@@ -4,12 +4,10 @@
      <div style="padding:10px">
     <flexbox>
       <flexbox-item><div class="flex-demo">
-        <p>可结佣 （税前）</p>
-        <p style="padding-top:15px">{{preTax}}元</p>
+        <p>应结佣：{{preTax}}元</p>
         </div></flexbox-item>
       <flexbox-item><div class="flex-demo">
-        <p>可结佣 （税后）</p>
-        <p style="padding-top:15px">{{afterTax}}元</p>
+        <p>已结佣：{{afterTax}}元</p>
         </div></flexbox-item>
     </flexbox>
   </div>
@@ -48,7 +46,7 @@ export default {
     .flex-demo{
       background-color: crimson;
       color:#fff;
-      height:82px;
+      height:50px;
       border:1px solid #fff;
       border-radius: 10px;
       padding: 10px;

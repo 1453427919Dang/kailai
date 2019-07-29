@@ -43,18 +43,24 @@ export default {
       password:'',
     }
   },
+  created(){
+      this.phoneNumber = localStorage.getItem("empId")
+    this.password =  localStorage.getItem("empPassword")
+  },
   methods: {
       goto(){
           let data={
-              "loginName": this.phoneNumber,
+              "loginName": this.phoneNumber.replace(' ','').replace(' ',''),
 	            "password": this.password
           }
            EmpLogin(qs.parse(data)).then(res => {
                console.log(res);
                if(res.data.result){
+                   localStorage.setItem("empId", this.phoneNumber);
+                    localStorage.setItem("empPassword", this.password);
                    let response = res.data.data;
                    console.log(response.pName);
-                   this.$router.push({path:'/emplayess',query:{emplayessId:response.id,emplayessName:response.pName}})
+                   this.$router.push({path:'/emplayess',query:{emplayessId:response.id,emplayessName:response.pName,canReport:response.canReport}})
                }else{
                    this.$vux.alert.show({
                     title: res.data.msg,

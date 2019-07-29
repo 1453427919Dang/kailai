@@ -55,17 +55,18 @@ export default {
           let channel= res.data.data;
           for(var i=0;i<channel.length;i++){
             let obj={};
-            obj.key=channel.id;
-            obj.value=channel.name;
+            obj.key=channel[i].id;
+            obj.value=channel[i].name;
             this.channelList.push(obj);
           }
+          console.log(this.channelList);
       })
     
   },
   methods: {
     register() {
       this.data = {
-        pPhone: this.emptyPhone,
+        pPhone: this.emptyPhone.replace(' ','').replace(' ',''),
         pPassword: this.emptyPassword,
         pName: this.emptyName,
         cbID: this.cbID
@@ -123,4 +124,5 @@ export default {
   background: #fff;
   padding:10px;
 }
+
 </style>

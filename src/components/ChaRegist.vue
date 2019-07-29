@@ -68,7 +68,7 @@ export default {
         companyName: this.companyName,
         taxNumber: this.taxNumber,
         contacts: this.contacts,
-        phone: this.phone,
+        phone: this.phone.replace(' ','').replace(' ',''),
         address: this.address
       };
      cheRegist(this.data).then(res => {

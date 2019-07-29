@@ -40,6 +40,10 @@ export default {
       password:'',
     }
   },
+   created(){
+      this.phoneNumber = localStorage.getItem("chaId")
+    this.password =  localStorage.getItem("chaPassword")
+  },
   methods: {
       login(){
           let data={
@@ -49,6 +53,8 @@ export default {
            cheLogin(qs.parse(data)).then(res => {
                console.log(res);
                if(res.data.result){
+                   localStorage.setItem("chaId", this.phoneNumber);
+                    localStorage.setItem("chaPassword", this.password);
                    let response = res.data.data
                    this.$router.push({ path:'/distributors',query:{channelId:response.id,channelName:response.accountName}})
                }else{

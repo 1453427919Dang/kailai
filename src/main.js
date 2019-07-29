@@ -13,9 +13,13 @@ import ChaLogin from './components/ChaLogin';
 import EmpRegist from './components/EmpRegist';
 import EmpLogin from './components/EmpLogin';
 import MyEmp from './components/distributors/MyEmp';
+import ApprovingEmp from './components/distributors/ApprovingEmp';
 import Commission from  './components/distributors/Commission';
 import Distributors from './components/distributors/Distributors';
+import CustomerTrasfer from './components/distributors/CustomerTrasfer'
 import Emplayess from  './components/emplayess/Emplayess';
+import QuitEmplayess from  './components/emplayess/QuitEmplayess';
+import CustomerDetail from './components/emplayess/CustomerDetail'
 import Customer from './components/emplayess/Customer';
 import Report from './components/emplayess/Report';
 import AdviserLogin from './components/AdviserLogin';
@@ -59,6 +63,15 @@ const routes = [
   component: MyEmp,
 },
 {
+  path:'/customerTrasfer',
+  component:CustomerTrasfer,
+},
+{
+  path:'/approvingEmp',
+  component:ApprovingEmp
+
+},
+{
   path: '/commission',
   component : Commission,
 },
@@ -75,8 +88,16 @@ const routes = [
   component: Emplayess
 },
 {
+  path:'/quitEmplayess',
+  component:QuitEmplayess
+},
+{
   path: '/customer',
   component: Customer
+},
+{
+  path:'/customerDetail',
+  component:CustomerDetail
 },
 {
   path: '/report',
