@@ -3,7 +3,7 @@
     <div class="vux-demo">
       <img class="logo" src="../assets/index.jpg">
     </div>
-    <div>
+    <!-- <div>
       <button class="weui-btn weui-btn_warn"  @click="herfCha">
         <img src="http://klwx.choicelean.com:80/images/btn-bg-zc.png" alt="" width="30" height="30">
         <span class="font-style">渠道商注册</span>
@@ -12,7 +12,7 @@
         <img src="http://klwx.choicelean.com:80/images/btn-bg-zc.png" alt="" width="30" height="30"> 
         <span class="font-style"> 员工注册</span>
         </button>
-    </div>
+    </div> -->
     <div>
       <button class="weui-btn weui-btn_warn" @click="herfChaLogin">
         <img src="http://klwx.choicelean.com:80/images/btn-bg-22.png" alt="" width="30" height="30"> 
@@ -20,7 +20,7 @@
         </button>
       <button class="weui-btn weui-btn_warn" @click="herfEmpLogin">
         <img src="http://klwx.choicelean.com:80/images/btn-bg-55.png" alt="" width="30" height="30"> 
-        <span class="font-style"> 员工管理</span>
+        <span class="font-style"> 渠道商员工管理</span>
       </button>
     </div>
     <div>

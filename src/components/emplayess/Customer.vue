@@ -21,7 +21,7 @@
             <td>{{report.projectName}}</td>
             <td> {{report.cPhone}}</td>
             <td> {{report.statusName}}</td>
-            <td ><a @click="query(report.reportId)">查看</a></td>
+            <td ><a @click="query(report.clientId)">查看</a></td>
           </tr>
         </tbody>
       </x-table>

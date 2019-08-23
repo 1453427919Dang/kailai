@@ -23,6 +23,9 @@
         <div class="deepStyle">
             <x-input class="inStyle" name="address" type="text" placeholder="联系地址" v-model="address" ></x-input>
         </div>
+        <div class="deepStyle">
+          <input class="inStyle1" type="file" @change="uploadFile($event)" multiple="multiple" />
+        </div>
         <!-- <div style="padding-top:10px">
             <check-icon :value.sync="demo2" type="plain"> <a href="http://klwx.choicelean.com/regprotocol.html">我同意以上注册协议</a> </check-icon>
         </div> -->
@@ -36,7 +39,7 @@
 
 <script>
 import Base from "../libs/base";
-import { XInput, CheckIcon, XButton, Group ,AlertModule,Confirm} from "vux";
+import { XInput, CheckIcon, XButton, Group, AlertModule, Confirm } from "vux";
 import { cheRegist, getCaptcha, cheLogin } from "@/request/api/login.js";
 export default {
   components: {
@@ -61,6 +64,19 @@ export default {
     };
   },
   methods: {
+    uploadFile: function(event) {
+      this.file = event.target.files[0]; //获取input的图片file值
+      let param = new FormData(); // 创建form对象
+      param.append("imgFile", this.file); //对应后台接收图片名
+      axios
+        .post("http://www.baidu.com/upload_img", param)
+        .then(function(res) {
+          console.log(res);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     register() {
       this.data = {
         account: this.account,
@@ -68,31 +84,31 @@ export default {
         companyName: this.companyName,
         taxNumber: this.taxNumber,
         contacts: this.contacts,
-        phone: this.phone.replace(' ','').replace(' ',''),
+        phone: this.phone.replace(" ", "").replace(" ", ""),
         address: this.address
       };
-     cheRegist(this.data).then(res => {
-            console.log(res);
-            if (res.data.result) {
-                this.$vux.alert.show({
-                    title: res.data.msg,
-                    content: '请去登录页登陆！',
-                    buttonText: '确定',
-                    hideOnBlur: true,
-                    maskZIndex: 100,
-                 })
-                 this.$router.push({path:'/ChaLogin'})
-            }else{
-                this.$vux.alert.show({
-                    title: res.data.msg,
-                    buttonText: '确定',
-                    hideOnBlur: true,
-                    maskZIndex: 100,
-                 })
-            }
+      cheRegist(this.data).then(res => {
+        console.log(res);
+        if (res.data.result) {
+          this.$vux.alert.show({
+            title: res.data.msg,
+            content: "请去登录页登陆！",
+            buttonText: "确定",
+            hideOnBlur: true,
+            maskZIndex: 100
+          });
+          this.$router.push({ path: "/ChaLogin" });
+        } else {
+          this.$vux.alert.show({
+            title: res.data.msg,
+            buttonText: "确定",
+            hideOnBlur: true,
+            maskZIndex: 100
+          });
+        }
       });
       console.log(this.data);
-    }   
+    }
   }
 };
 </script>
@@ -122,5 +138,17 @@ export default {
   width: 97%;
   height: 45px;
   background: #fff;
+}
+.inStyle1 {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 97%;
+  height: 45px;
+  background: #fff;
+  padding-top: 10px;
+  padding-left: 3px;
 }
 </style>

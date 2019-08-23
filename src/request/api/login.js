@@ -205,6 +205,17 @@ function SeeHouseConfirm(data) {
   })
 }
 
+/**
+ * 获取渠道商佣金
+ * */ 
+function ChannelBusinessCommission(data) {
+  return request({
+    url: `${serve}/ChannelBusinessCommission`,
+    method: 'get',
+    params:data
+  })
+}
+
 
 /**
  * 渠道员工离职
@@ -282,6 +293,7 @@ export {
   ChannelBusinessMoveClient,
   ChannelPersonGetClientContact,
   ChannelBusinessCount,
+  ChannelBusinessCommission,
 
   snsapiBase,
   getSignature

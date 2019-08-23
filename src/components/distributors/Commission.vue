@@ -4,30 +4,68 @@
      <div style="padding:10px">
     <flexbox>
       <flexbox-item><div class="flex-demo">
-        <p>应结佣：{{preTax}}元</p>
+        <p>应结佣：{{dataSource.totalPrice}}元</p>
         </div></flexbox-item>
       <flexbox-item><div class="flex-demo">
-        <p>已结佣：{{afterTax}}元</p>
+        <p>已结佣：{{dataSource.payedPrice}}元</p>
         </div></flexbox-item>
     </flexbox>
+  </div>
+  <div style="padding:10px">
+
+  <x-table :cell-bordered="false" :content-bordered="true" style="background-color:#fff;">
+        <thead>
+          <tr style="background-color: crimson;color:#fff">
+            <th>渠道员工</th>
+            <th>房号</th>
+            <th>应结（元）</th>
+            <th>已结（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="commission in commissionList" :key="commission.personName"> 
+            <td style="width:20%;text-align:left;padding-left:5px;">{{commission.personName}}</td>
+            <td style="width:40%;text-align:left">{{commission.roomName}}</td>
+            <td style="width:20%;text-align:right">{{commission.totalcommission}}</td>
+            <td style="width:20%;text-align:right;padding-right:5px">{{commission.payedcommission}}</td>
+          </tr>
+        </tbody>
+      </x-table>
   </div>
   </div>
 </template>
 
 <script>
-import { Flexbox, FlexboxItem, Divider } from 'vux'
+import { Flexbox, FlexboxItem, Divider,XTable, } from 'vux'
+import {ChannelBusinessCommission} from  "@/request/api/login.js";
 export default {
   components: {
     Flexbox,
     FlexboxItem,
-    Divider
+    Divider,
+    XTable,
   },
   data () {
     return {
      preTax:100,
-     afterTax:200
-
+     afterTax:200,
+     cbId:"",
+     dataSource:{},
+    commissionList:[],
     }
+  },
+  created(){
+    this.cbId = this.$route.query.channelId;
+    let data = {cbId:this.cbId}
+    ChannelBusinessCommission(data).then((res)=>{
+      console.log(res);
+      if(res.data.result){
+        this.dataSource = res.data.data;
+        if(this.dataSource.list !=null){
+          this.commissionList = this.dataSource.list
+        }
+      }
+    })
   },
   methods: {
 

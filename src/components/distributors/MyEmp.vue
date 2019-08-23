@@ -6,7 +6,8 @@
         <thead>
           <tr style="background-color: crimson;color:#fff">
             <th>渠道员工</th>
-            <th>客户数量</th>
+            <th>报备数量</th>
+            <th>带看数量</th>
             <th>成交数量</th>
             <th>成交总价</th>
           </tr>
@@ -14,7 +15,8 @@
         <tbody>
           <tr v-for="myEmpty in myEmptyList" :key="myEmpty.id"> 
             <td>{{myEmpty.pName}}</td>
-            <td>{{myEmpty.clientNum}}</td>
+            <td>{{myEmpty.rptCount}}</td>
+            <td>{{myEmpty.seeCount}}</td>
             <td> {{myEmpty.contractNum}}</td>
             <td>{{myEmpty.contractPrice}}</td>
           </tr>
