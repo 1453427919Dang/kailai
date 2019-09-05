@@ -4,7 +4,8 @@ const service = axios.create({
   timeout: 150000,// request timeout  设置15秒超时
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json'
+    // 'Content-Type': 'application/json'
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
 })
 

@@ -80,7 +80,7 @@ export default {
       this.$router.push({ path: "./EmpLogin" });
     },
     herfAdviserLogin() {
-      this.$router.push({ path: "./AdviserLogin" });
+      this.$router.push({ path: "./ProjectList" });
     }
   }
 };

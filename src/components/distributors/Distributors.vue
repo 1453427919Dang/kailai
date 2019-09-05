@@ -10,7 +10,14 @@
             </flexbox-item>
 
         </flexbox>
-        
+         <flexbox style="margin-top:10px" v-for="item in auditList" :key="item.index">
+           <flexbox-item>
+            <span>{{item.projectName}}：{{item.statusName}}</span>
+        </flexbox-item>
+        <flexbox-item v-if="item.auditReason!==''">
+           <span>原因：{{item.auditReason}}</span>
+        </flexbox-item> 
+        </flexbox >
          <flexbox style="margin-top:10px" >
            <flexbox-item>
             <span>报备客户总数：{{qdList.rptCount}}</span>
@@ -24,7 +31,7 @@
            <span>成交客户总数：{{qdList.saleCount}}</span>
         </flexbox-item>
         <flexbox-item>
-           <span>佣金总金额：{{qdList.payedcommission}}</span>
+           <span>已发放佣金：{{qdList.payedcommission}}</span>
         </flexbox-item> 
         </flexbox>
       </div>
@@ -41,7 +48,7 @@
     <div>
       <button class="weui-btn weui-btn_warn" @click="hrefApprov">
         <img src="../../assets/personal.png" alt="" width="30" height="30"> 
-        <span class="font-style"> 待审员工</span>
+        <span class="font-style"> 待审员工({{todoAuditNumber}})</span>
       </button>
       
       <button class="weui-btn weui-btn_warn" @click="hrefTrasfer">
@@ -54,37 +61,50 @@
 
 <script>
 import { Flexbox, FlexboxItem, Divider } from "vux";
-import {ChannelBusinessCount} from "@/request/api/login.js";
+import {ChannelBusinessCount,todoAudit} from "@/request/api/login.js";
 export default {
   components: {
     Flexbox,
     FlexboxItem,
     Divider,
   },
+      data() {
+        return {
+          personalName: "",
+          personalId: "",
+          qdList:{},
+          auditReason:"",
+          statusName:"",
+          todoAuditNumber:"",
+          auditList:[]
+    
+        };
+      },
   created() {
   
     this.personalId = this.$route.query.channelId;
     this.personalName = this.$route.query.channelName;
+    // this.auditList=this.$route.query.auditList;
+    // console.log(this.auditList);
     let data={
       cbId:this.personalId
     }
     ChannelBusinessCount(data).then((res)=>{
-        console.log(res);
+         console.log(res);
         if(res.data.result){
           if(res.data.data!=null){
-            this.qdList = res.data.data[0];
-            console.log(this.qdList)
+            this.qdList = res.data.data;
+             console.log(this.qdList)
+             this.auditList = res.data.data.auditList
           }
         }
     })
-  },
-  data() {
-    return {
-      personalName: "",
-      personalId: "",
-      qdList:{},
-
-    };
+    todoAudit(data).then(res=>{
+      // console.log(res);
+       if(res.data.data!=null){
+         this.todoAuditNumber=res.data.data.count
+       }
+    })
   },
   methods: {
     hrefStaff() {

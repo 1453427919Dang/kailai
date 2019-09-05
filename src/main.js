@@ -13,6 +13,7 @@ import ChaLogin from './components/ChaLogin';
 import EmpRegist from './components/EmpRegist';
 import EmpLogin from './components/EmpLogin';
 import MyEmp from './components/distributors/MyEmp';
+import EmpDetail from './components/distributors/EmpDetail';
 import ApprovingEmp from './components/distributors/ApprovingEmp';
 import Commission from  './components/distributors/Commission';
 import Distributors from './components/distributors/Distributors';
@@ -27,6 +28,7 @@ import Adviser from './components/Adviser'
 import MyCustomer from './components/emplayess/MyCustomer'
 import QR from './components/emplayess/QR'
 import Loading from './components/Loading'
+import ProjectList from './components/ProjectList'
 import $ from 'jquery'
 
 Vue.use(VueRouter)
@@ -61,6 +63,10 @@ const routes = [
 {
   path: '/myEmp',
   component: MyEmp,
+},
+{
+  path: '/empDetail',
+  component: EmpDetail,
 },
 {
   path:'/customerTrasfer',
@@ -114,6 +120,10 @@ const routes = [
 {
   path: '/adviser',
   component: Adviser
+},
+{
+path: '/projectList',
+component: ProjectList
 },
 {
   path: '/myCustomer/:id',

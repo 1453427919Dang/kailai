@@ -24,77 +24,85 @@
 </template>
 
 <script>
-import Base from '../libs/base'
-import { XInput,CheckIcon,XButton} from 'vux'
-import { getCaptcha, cheLogin } from "@/request/api/login.js"
-import qs from	'qs'
+import Base from "../libs/base";
+import { XInput, CheckIcon, XButton } from "vux";
+import { getCaptcha, cheLogin } from "@/request/api/login.js";
+import qs from "qs";
 export default {
-     components:{
-        XInput,
-        CheckIcon,
-        XButton
-    },
-  data () {
-    return {
-      phoneNumber: '',
-      password:'',
-    }
+  components: {
+    XInput,
+    CheckIcon,
+    XButton
   },
-   created(){
-      this.phoneNumber = localStorage.getItem("chaId")
-    this.password =  localStorage.getItem("chaPassword")
+  data() {
+    return {
+      phoneNumber: "",
+      password: ""
+    };
+  },
+  created() {
+    this.phoneNumber = localStorage.getItem("chaId");
+    this.password = localStorage.getItem("chaPassword");
   },
   methods: {
-      login(){
-          let data={
-              "loginName": this.phoneNumber,
-	            "password": this.password
-          }
-           cheLogin(qs.parse(data)).then(res => {
-               console.log(res);
-               if(res.data.result){
-                   localStorage.setItem("chaId", this.phoneNumber);
-                    localStorage.setItem("chaPassword", this.password);
-                   let response = res.data.data
-                   this.$router.push({ path:'/distributors',query:{channelId:response.id,channelName:response.accountName}})
-               }else{
-                   this.$vux.alert.show({
-                    title: res.data.msg,
-                    content: '请重新登陆',
-                    buttonText: '确定',
-                    hideOnBlur: true,
-                    maskZIndex: 100,
-                 })
-               }
-           })
-      }
+    login() {
+      let data = {
+        loginName: this.phoneNumber,
+        password: this.password
+      };
+      cheLogin(qs.parse(data)).then(res => {
+        console.log(res);
+        if (res.data.result) {
+          localStorage.setItem("chaId", this.phoneNumber);
+          localStorage.setItem("chaPassword", this.password);
+          let response = res.data.data;
+        //   localStorage.setItem("auditList", response);
+        //   console.log(localStorage.getItem("auditList"));
+          this.$router.push({
+            path: "/distributors",
+            query: {
+              channelId: response.id,
+              channelName: response.accountName,
+              auditList: response.auditList,
+            }
+          });
+        } else {
+          this.$vux.alert.show({
+            title: res.data.msg,
+            content: "请重新登陆",
+            buttonText: "确定",
+            hideOnBlur: true,
+            maskZIndex: 100
+          });
+        }
+      });
+    }
   }
-}
+};
 </script>
 
 <style scoped>
-    .emp-font{
-        font-size: 30px;
-        color: crimson;
-       font-weight: bold;
-        text-align: center;
-        margin: 20px 0;
-    }
+.emp-font {
+  font-size: 30px;
+  color: crimson;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+}
 
-    .inStyle{
-        border:1px solid #eee;
-        border-radius: 8px;
-        margin-left: 5px;
-        margin-right: 5px;
-        margin-bottom: 10px;
-        width:97%;
-        height: 45px;
-        background: #fff;
-
-    }
-    .trademask {
-        text-align: center;
-        margin-top: 20%;
-        color:rgba(0, 0, 0, 0.6);
-    }
+.inStyle {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  width: 97%;
+  height: 45px;
+  background: #fff;
+}
+.trademask {
+  text-align: center;
+  margin-top: 20%;
+  color: rgba(0, 0, 0, 0.6);
+}
 </style>

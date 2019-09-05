@@ -7,6 +7,14 @@
             </div>
            
             </flexbox-item>
+          </flexbox>
+            <flexbox style="margin-top:8px" >
+             <flexbox-item>
+            <span>审核状态：{{statusName}}</span>
+        </flexbox-item>
+        <flexbox-item v-if="auditReason!==''">
+           <span>原因：{{auditReason}}</span>
+        </flexbox-item> 
         </flexbox>
       </div>
       <div>
@@ -34,36 +42,43 @@
 </template>
 
 <script>
-
-import QRCode from 'qrcode';
-import { Flexbox, FlexboxItem, Divider,Alert } from 'vux';
+import QRCode from "qrcode";
+import { Flexbox, FlexboxItem, Divider, Alert } from "vux";
 export default {
-components: {
+  components: {
     Flexbox,
     FlexboxItem,
     Divider,
     Alert
   },
-  data () {
+  data() {
     return {
-      emplayessName:'',
-      emplayessId:'',
-      canReport:'true',
-    }
+      emplayessName: "",
+      emplayessId: "",
+      canReport: "true",
+      auditReason:"",
+      statusName:"",
+    };
   },
-  created(){
+  created() {
     // $route.channelList;
     this.emplayessName = this.$route.query.emplayessName;
     this.emplayessId = this.$route.query.emplayessId;
     this.canReport = this.$route.query.canReport;
+    this.statusName = this.$route.query.statusName;
+    this.auditReason = this.$route.query.auditReason;
+    console.log(this.statusName);
     console.log(this.canReport);
   },
   methods: {
-    herfReport(){
+    herfReport() {
       console.log(this.canReport);
-      if(this.canReport){
-         this.$router.push({path:'/report',query:{emplayessId:this.emplayessId}})
-      }else{
+      if (this.canReport) {
+        this.$router.push({
+          path: "/report",
+          query: { emplayessId: this.emplayessId }
+        });
+      } else {
         this.$vux.alert.show({
           title: "请检查是否处于在职状态或是否审核通过",
           buttonText: "确定",
@@ -71,34 +86,44 @@ components: {
           maskZIndex: 100
         });
       }
-     
     },
-    herfCus(){
-      this.$router.push({path:'/customer',query:{emplayessId:this.emplayessId}});
+    herfCus() {
+      this.$router.push({
+        path: "/customer",
+        query: { emplayessId: this.emplayessId }
+      });
     },
-    useqrcode(){
-         this.$router.push({path:'/qr',query:{emplayessId:this.emplayessId}})
-      },
-    quit(){
-        this.$router.push({path:'/quitEmplayess',query:{emplayessId:this.emplayessId,emplayessName:this.emplayessName}})
+    useqrcode() {
+      this.$router.push({
+        path: "/qr",
+        query: { emplayessId: this.emplayessId }
+      });
+    },
+    quit() {
+      this.$router.push({
+        path: "/quitEmplayess",
+        query: {
+          emplayessId: this.emplayessId,
+          emplayessName: this.emplayessName
+        }
+      });
     }
-     
-    },
-}
+  }
+};
 </script>
 
 <style scoped>
-    .box{
-      border: 1px solid #fff;
-      border-radius:8px;
-      height:80px;
-      width:93%;
-      padding: 10px;
-      margin: 20px 15px;
-      background: #fff;
-    }
+.box {
+  border: 1px solid #fff;
+  border-radius: 8px;
+  height: 80px;
+  width: 93%;
+  padding: 10px;
+  margin: 20px 15px;
+  background: #fff;
+}
 
-    button.weui-btn {
+button.weui-btn {
   width: 45%;
   height: 100px;
   display: inline-block;
@@ -111,13 +136,13 @@ components: {
   text-align: center;
   width: 100%;
 }
-.mask{
-   width: 100%;
-    height: 100%;
-   vertical-align: middle;
-   text-align: center;
-   line-height: 100%;
-   bottom: -270px;
+.mask {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 100%;
+  bottom: -270px;
   position: fixed;
   z-index: 998;
 }

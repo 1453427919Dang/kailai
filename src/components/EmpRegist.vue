@@ -13,7 +13,7 @@
             <x-input class="inStyle" name="emptyPassword" type="password" placeholder="数字密码"  v-model="emptyPassword" required></x-input>
         </div>
          <div class="deepStyle">
-            <selector v-model="cbID" title="渠道商选择：" :options="channelList" ></selector>
+            <x-input  class="inStyle" name="cbID" type="text"  placeholder="渠道商" v-model="cbID" is-type="china-name" required></x-input>
          </div> 
         <div style="padding:10px;">
             <x-button class="weui-btn weui-btn_warn" @click.native="register">注册</x-button>
@@ -43,9 +43,6 @@ export default {
       emptyPhone: "",
       channelList:[],
       cbID:"",
-      list2:[
-         {key: 'gd', value: '广东'}, {key: 'gx', value: '广西'}
-      ]
     };
   },
   created(){

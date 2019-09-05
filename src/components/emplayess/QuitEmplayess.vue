@@ -7,8 +7,12 @@
       <group  class="deepStyle">
         <x-input title="渠道员工名称："   name="emptyName" type="text"   v-model="emplayessName"  is-type="china-name" disabled></x-input>
       </group>
-      <group class="deepStyle">
-            <selector  v-model="cbID" title="新渠道商选择：" :options="channelList" ></selector>
+      <group  class="deepStyle">
+        <x-button class="buttonStyle" @click.native="controlVisiable">新渠道</x-button>  <x-button class="buttonStyle" @click.native="jump">全民经纪人</x-button>
+      </group>
+
+      <group class="deepStyle" v-show="visiable">
+            <x-input  name="cbID" type="text"  placeholder="渠道商" v-model="cbID" is-type="china-name" required></x-input>
       </group>
       <group class="deepStyle">
         <datetime   v-model="quitDate"  title="离职时间：" required></datetime>
@@ -33,6 +37,7 @@ export default {
       cbID:"",
       channelList:[],
       quitDate:"",
+      visiable:false
     };
   },
   components:{
@@ -61,13 +66,18 @@ export default {
       })
   },
   methods: {
-  
+    controlVisiable(){
+      this.visiable = true;
+    },
+    jump(){
+      window.location.href = "http://klwx.choicelean.com/wx/toBrokerRegister.xhtml?broker.uType=1";
+    },
     quit(){
         let data={
         pId:this.emplayessId,
-        businessId:this.cbID,
+        nwCompanyName:this.cbID,
         quitDate:this.quitDate
-    }
+      }
     console.log(data);
       ChannelPersonDismission(data).then((res)=>{
         console.log(res);
@@ -119,5 +129,13 @@ export default {
   background: #fff;
   padding:10px;
   display: inline-block
+}
+.buttonStyle{
+  display: inline-block;
+  width:45%;
+  margin-bottom:10px;
+  color:#fff;
+  background-color: rgb(230, 67, 64);
+  margin-left: 2%;
 }
 </style>

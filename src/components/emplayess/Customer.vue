@@ -84,8 +84,11 @@ export default {
       { key: "1", value: "无效" },
       { key: "2", value: "可带看" },
       { key: "3", value: "已带看" },
-      { key: "40", value: "已成交" },
-      { key: " ", value: "" }
+      { key: "51", value: "已签约" },
+      { key: "50", value: "已认购" },
+      { key: "41", value: "退签约" },
+      { key: "40", value: "退认购" },
+      { key: " ", value: "所有" }
     ];
     let data = {
       pId: this.$route.query.emplayessId,

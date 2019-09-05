@@ -23,10 +23,13 @@
           is-type="china-mobile"
         ></x-input>
       </div>
-      <div style="padding-top:10px;padding-left:15px" >
-          <p v-for="project in projects" :key="project.key" style="display:inline-block">
-              <input name="sex" type="radio" v-model="projectId" :value="project.key"/>{{project.value}} &nbsp;&nbsp;
-          </p>
+      <div class="deepStyle">
+          <checker   v-model="projectId" type="checkbox" default-item-class="demo1-item" selected-item-class="demo1-item-selected">
+            <checker-item style="margin-left:5px;margin-top:5px" v-for="project in projects" :key="project.key" :value="project.key">{{project.value}}</checker-item>
+          </checker>
+          <!-- <p v-for="project in projects" :key="project.key" style="display:inline-block">
+              <input name="sex" type="checkbox" v-model="projectId" :value="project.key"/>{{project.value}} &nbsp;&nbsp;
+          </p> -->
       </div>
       <div style="padding:10px;">
         <h5 style="color:#676869">温馨提示</h5>
@@ -41,8 +44,17 @@
 
 <script>
 import Base from "../../libs/base";
-import { XInput, CheckIcon, XButton, Group, XTextarea, Radio } from "vux";
-import { getSaProjectList, report } from "@/request/api/login.js";
+import {
+  XInput,
+  CheckIcon,
+  XButton,
+  Group,
+  XTextarea,
+  Radio,
+  Checker,
+  CheckerItem
+} from "vux";
+import { getSaProjectList, report,getProjectList } from "@/request/api/login.js";
 export default {
   components: {
     XInput,
@@ -50,7 +62,9 @@ export default {
     XButton,
     Group,
     XTextarea,
-    Radio
+    Radio,
+    Checker,
+    CheckerItem
   },
   data() {
     return {
@@ -62,8 +76,11 @@ export default {
       projectId: ""
     };
   },
-  created() {
-    getSaProjectList().then(res => {
+    created() {
+    let companyId = {
+      companyId: "100103"
+    };
+    getProjectList(companyId).then(res => {
       console.log(res);
       if (res.data.result) {
         this.projects = [];
@@ -84,7 +101,7 @@ export default {
         pId: this.$route.query.emplayessId,
         jsonData: {
           cName: this.emplayessName,
-          cPhone: this.emplayessPhone.replace(' ','').replace(' ',''),
+          cPhone: this.emplayessPhone.replace(" ", "").replace(" ", ""),
           projectId: this.projectId
         }
       };
@@ -92,23 +109,23 @@ export default {
       console.log(data);
       report(data).then(res => {
         console.log(res);
-        if(res.data.result){
+        if (res.data.result) {
           this.$vux.alert.show({
-                    title: res.data.msg,
-                    content: '报备成功',
-                    buttonText: '确定',
-                    hideOnBlur: true,
-                    maskZIndex: 100,
-            })
-            this.$router.go(-1);
-        }else{
+            title: res.data.msg,
+            content: "报备成功",
+            buttonText: "确定",
+            hideOnBlur: true,
+            maskZIndex: 100
+          });
+          this.$router.go(-1);
+        } else {
           this.$vux.alert.show({
-                    title: res.data.msg,
-                    content: '请重新报备',
-                    buttonText: '确定',
-                    hideOnBlur: true,
-                    maskZIndex: 100,
-            })
+            title: res.data.msg,
+            content: "请重新报备",
+            buttonText: "确定",
+            hideOnBlur: true,
+            maskZIndex: 100
+          });
         }
       });
     }
@@ -141,5 +158,14 @@ export default {
   width: 97%;
   height: 35px;
   background: #fff;
+}
+.demo1-item {
+  border: 1px solid #ececec;
+  background-color: #fff;
+  padding: 5px 15px;
+}
+.demo1-item-selected {
+  border: 1px solid crimson;
+  
 }
 </style>

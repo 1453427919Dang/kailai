@@ -12,10 +12,21 @@ const serve = 'http://erp.king-land.com:90/ChannelWebService/Service.asmx'
 function cheRegist(jsonData) {
   return request({
     url: `${serve}/ChannelBusinessAdd`,
-    method: 'get',
-    params: {
+    method: 'post',
+    // params: {
       jsonData
-    }
+    // }
+  })
+}
+
+/**
+ * 短信发送
+ * */ 
+function sendMessage(data) {
+  return request({
+    url: `${serve}/SmsSend`,
+    method: 'get',
+     params: data
   })
 }
 
@@ -31,6 +42,18 @@ function empRegist(jsonData) {
     }
   })
 }
+/**
+ * 短信验证
+ * */ 
+// function sendMessage(jsonData) {
+//   return request({
+//     url: ``,
+//     method: 'get',
+//     params: {
+//       jsonData
+//     }
+//   })
+// }
 
 /**
  * 注册商登陆
@@ -38,6 +61,28 @@ function empRegist(jsonData) {
 function cheLogin(data) {
   return request({
     url: `${serve}/ChannelBusinessLogin`,
+    method: 'get',
+    params: data
+    
+  })
+}
+/**
+ * 待审核员工数量
+ * */ 
+function todoAudit(data) {
+  return request({
+    url: `${serve}/ChannelBusinessGetPeronUnAuditedCount`,
+    method: 'get',
+    params: data
+    
+  })
+}
+/**
+ * 通过公司id获取项目名称
+ * */ 
+function getProjectList(data) {
+  return request({
+    url: `${serve}/ErpGetSaProjectListByCompanyId`,
     method: 'get',
     params: data
     
@@ -65,6 +110,7 @@ function ChannelBusinessAudit(data) {
     params:data
   })
 }
+
 
 
 /**
@@ -227,6 +273,17 @@ function ChannelPersonDismission(data) {
     params:data
   })
 }
+/**
+ * 获取职业顾问列表
+ * */ 
+function getAdviser(data) {
+  return request({
+    url: `${serve}/ErpGetProjectUserList`,
+    method: 'get',
+    params:data
+  })
+}
+
 /*
 *****************   获取openId   **************************
 */ 
@@ -294,6 +351,10 @@ export {
   ChannelPersonGetClientContact,
   ChannelBusinessCount,
   ChannelBusinessCommission,
+  getProjectList,
+  todoAudit,
+  sendMessage,
+  getAdviser,
 
   snsapiBase,
   getSignature

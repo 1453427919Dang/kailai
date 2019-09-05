@@ -40,7 +40,10 @@
           :next-link-class="'next-link-item'"
         ></paginate>
       </div>
-      <button class="weui-btn weui-btn_warn" @click="confirm">
+      <group class="deepStyle">
+            <selector  v-model="adviserId" title="职业顾问：" :options="adviserList" required></selector>
+      </group>
+      <button class="weui-btn weui-btn_warn" @click="confirm" style="margin-top:8px">
         带看确认
       </button>
     </div>
@@ -53,16 +56,23 @@
   </div>
 </template>
 <script>
-import { XTable,Alert } from "vux";
+import { XTable, Alert, Group, Selector } from "vux";
 import Paginate from "vuejs-paginate";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getReportList, SeeHouseConfirm,ClientReportCanSeeList } from "@/request/api/login.js";
+import {
+  getReportList,
+  SeeHouseConfirm,
+  ClientReportCanSeeList,
+  getAdviser
+} from "@/request/api/login.js";
 
 export default {
   components: {
     XTable,
     Paginate,
-    Alert
+    Alert,
+    Group,
+    Selector
   },
   data() {
     return {
@@ -72,6 +82,9 @@ export default {
       reportList: [],
       pId: "",
       reportIds: [],
+      verfification: "",
+      adviserList: [],
+      adviserId:"",
     };
   },
   created() {
@@ -79,16 +92,11 @@ export default {
     let paraList = url.split("/");
     console.log(paraList);
     this.pId = paraList[paraList.length - 1];
+    console.log(this.pId);
     let data = {
-      pId: this.pId,
-      // page: this.currentPage,
-      // pageCount: 1,
-      // jsonQuery: {
-      //   name: "",
-      //   phone: "",
-      //   state: ""
-      // },
-      // sortby: ""
+      pId:this.pId,
+      projectId: localStorage.getItem("projectId")
+      // projectId: 100158
     };
     console.log(data);
     ClientReportCanSeeList(data).then(res => {
@@ -96,6 +104,23 @@ export default {
       if (res.data.result) {
         this.reportList = res.data.data.listdata;
         this.currentPage = res.data.data.page.totalPages;
+      }
+    });
+    let project = {
+      projectId:localStorage.getItem("projectId")
+      // projectId: 100158
+    };
+    getAdviser(project).then(res => {
+      console.log(res);
+      if (res.data.result) {
+        this.adviserList = [];
+        let adviser = res.data.data;
+        for (var i = 0; i < adviser.length; i++) {
+          let obj = {};
+          obj.key = adviser[i].Id;
+          obj.value = adviser[i].Name;
+          this.adviserList.push(obj);
+        }
       }
     });
   },
@@ -115,11 +140,12 @@ export default {
       console.log(this.reportIds);
     },
     confirm() {
+      console.log(this.adviserId);
       let source = {
-         token:localStorage.getItem("openid"),
+        erpUserCode: this.adviserId,
         pId: this.pId,
-         jsonData: {
-        reportIds:this.reportIds.join(",")
+        jsonData: {
+          reportIds: this.reportIds.join(",")
         }
       };
       console.log(source);
@@ -127,14 +153,14 @@ export default {
         console.log(res.data);
         if (res.data.result) {
           //alert(res.data.msg);
-            this.$vux.alert.show({
+          this.$vux.alert.show({
             title: res.data.msg,
             buttonText: "确定",
             hideOnBlur: true,
             maskZIndex: 100
           });
           this.$router.go(0);
-        }else{
+        } else {
           this.$vux.alert.show({
             title: res.data.msg,
             buttonText: "确定",

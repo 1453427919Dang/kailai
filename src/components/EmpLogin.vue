@@ -60,7 +60,7 @@ export default {
                     localStorage.setItem("empPassword", this.password);
                    let response = res.data.data;
                    console.log(response.pName);
-                   this.$router.push({path:'/emplayess',query:{emplayessId:response.id,emplayessName:response.pName,canReport:response.canReport}})
+                   this.$router.push({path:'/emplayess',query:{emplayessId:response.id,emplayessName:response.pName,canReport:response.canReport,statusName:response.StatusName,auditReason:response.auditReason}})
                }else{
                    this.$vux.alert.show({
                     title: res.data.msg,

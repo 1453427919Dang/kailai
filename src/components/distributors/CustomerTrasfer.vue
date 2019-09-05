@@ -5,7 +5,7 @@
     </div>
     <div>
       <group class="deepStyle">
-            <selector  v-model="forcbId" title="需转移的员工：" :options="channelList"  @on-change="onChange"></selector>
+            <selector  v-model="forcbId" title="转出员工：" :options="channelList"  @on-change="onChange"></selector>
       </group>
       <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
         <thead>
@@ -24,7 +24,7 @@
         </tbody>
       </x-table>
        <group class="deepStyle">
-            <selector  v-model="tocbID" title="待转移的员工：" :options="channelList" required></selector>
+            <selector  v-model="tocbID" title="转入员工：" :options="channelList" required></selector>
       </group>
     </div>
     <button class="weui-btn weui-btn_warn" @click="confirm">
